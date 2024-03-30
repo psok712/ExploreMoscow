@@ -76,7 +76,6 @@ public class EditEmailProfileFragment extends Fragment {
             return;
         }
 
-        // TODO: Не изменяет email в firebase и требует авторизоваться заново при перезапуске приложения
         Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).verifyBeforeUpdateEmail(newEmail)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
