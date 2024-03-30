@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/profile"
+        android:icon="@drawable/icon_username"
+        tools:ignore="MenuTitle" />
+
+    <item
+        android:id="@+id/routes"
+        android:icon="@drawable/icon_routes"
+        tools:ignore="MenuTitle" />
+
+    <item
+        android:id="@+id/ribbon"
+        android:icon="@drawable/icon_planet"
+        tools:ignore="MenuTitle" />
+
+    <item
+        android:id="@+id/location"
+        android:icon="@drawable/icon_location"
+        tools:ignore="MenuTitle" />
+
+    <item
+        android:id="@+id/map"
+        android:icon="@drawable/icon_map"
+        tools:ignore="MenuTitle" />
+</menu>
