@@ -10,7 +10,7 @@
     <Button
         android:id="@+id/backToLocationsBtn"
         android:layout_width="120dp"
-        android:layout_height="50dp"
+        android:layout_height="45dp"
         android:layout_marginTop="0dp"
         android:backgroundTint="@color/background"
         android:text="Назад"
@@ -24,37 +24,35 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
-        android:src="@drawable/icon_favorite_location"
         android:paddingHorizontal="10dp"
         android:paddingVertical="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/scrollViewLocationDetails"
+        android:src="@drawable/icon_favorite_location"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="ContentDescription,RtlSymmetry" />
 
     <ImageButton
         android:id="@+id/checkLocationBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="0dp"
         android:background="@android:color/transparent"
         android:paddingHorizontal="8dp"
         android:paddingVertical="7.25dp"
         android:src="@drawable/icon_check_location"
-        app:layout_constraintBottom_toTopOf="@+id/scrollViewLocationDetails"
         app:layout_constraintEnd_toStartOf="@+id/favoriteLocationBtn"
+        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="ContentDescription,RtlSymmetry" />
 
     <ImageButton
         android:id="@+id/postponeLocationBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="0dp"
         android:background="@android:color/transparent"
         android:paddingHorizontal="8dp"
         android:paddingVertical="7.25dp"
         android:src="@drawable/icon_postpone_location"
-        app:layout_constraintBottom_toTopOf="@+id/scrollViewLocationDetails"
         app:layout_constraintEnd_toStartOf="@+id/checkLocationBtn"
+        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="ContentDescription,RtlSymmetry" />
 
     <ScrollView
