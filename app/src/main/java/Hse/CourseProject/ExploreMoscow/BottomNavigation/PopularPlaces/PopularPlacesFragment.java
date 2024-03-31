@@ -21,9 +21,7 @@ import java.util.List;
 import java.util.Objects;
 
 import Hse.CourseProject.ExploreMoscow.Ribbons.Location;
-import Hse.CourseProject.ExploreMoscow.Ribbons.LocationRibbon.LocationAdapter;
 import Hse.CourseProject.ExploreMoscow.Ribbons.PopularPlaces.PopularPlacesAdapter;
-import Hse.CourseProject.ExploreMoscow.Ribbons.RouteRibbon.RouteAdapter;
 import Hse.CourseProject.ExploreMoscow.databinding.FragmentPopularPlacesBinding;
 
 public class PopularPlacesFragment extends Fragment {
