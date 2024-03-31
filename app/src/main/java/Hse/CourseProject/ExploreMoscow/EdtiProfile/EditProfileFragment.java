@@ -141,17 +141,17 @@ public class EditProfileFragment extends Fragment {
                 public void onActivityResult(ActivityResult result) {
                     if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null && result.getData().getData() != null) {
                         imageFilePath = result.getData().getData();
-
+                        Bitmap bitmap;
                         try {
-                            Bitmap bitmap = MediaStore.Images.Media
+                            bitmap = MediaStore.Images.Media
                                     .getBitmap(
                                             requireContext().getContentResolver(),
                                             imageFilePath
                                     );
-                            binding.profileIv.setImageBitmap(bitmap);
                         } catch (IOException e) {
-                            e.printStackTrace();
+                            throw new RuntimeException(e);
                         }
+                        binding.profileIv.setImageBitmap(bitmap);
 
                         uploadImage();
                     }
