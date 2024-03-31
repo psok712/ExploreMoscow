@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="250dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/donskoy_monastery"
+        android:src="@drawable/error_cat_status"
         tools:ignore="ContentDescription" />
 
     <TextView
@@ -22,7 +22,7 @@
         android:fontFamily="@font/inter_light"
         android:padding="8dp"
         android:textSize="16sp"
-        android:text="Донской монастырь"
+        android:text="Название локации"
         android:gravity="center"
         tools:ignore="HardcodedText" />
 </RelativeLayout>

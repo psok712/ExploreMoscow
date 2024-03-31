@@ -1,4 +1,4 @@
-package Hse.CourseProject.ExploreMoscow.Location;
+package Hse.CourseProject.ExploreMoscow.Ribbons;
 
 public record Location(String nameLocation, String loadPictureLocation, String history,
                        String mainInfo) {

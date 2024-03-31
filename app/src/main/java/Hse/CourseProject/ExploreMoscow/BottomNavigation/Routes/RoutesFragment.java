@@ -20,8 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import Hse.CourseProject.ExploreMoscow.Route.Route;
-import Hse.CourseProject.ExploreMoscow.Route.RouteAdapter;
+import Hse.CourseProject.ExploreMoscow.Ribbons.Location;
+import Hse.CourseProject.ExploreMoscow.Ribbons.RouteRibbon.RouteAdapter;
 import Hse.CourseProject.ExploreMoscow.databinding.FragmentRoutesBinding;
 
 public class RoutesFragment extends Fragment {
@@ -38,7 +38,7 @@ public class RoutesFragment extends Fragment {
     }
 
     private void loadRoutes() {
-        List<Route> routes = new ArrayList<>();
+        List<Location> routes = new ArrayList<>();
 
         FirebaseDatabase.getInstance().getReference("Routes")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
@@ -50,8 +50,8 @@ public class RoutesFragment extends Fragment {
                             String history = Objects.requireNonNull(routeSnapshot.child("history").getValue()).toString();
                             String mainInfo = Objects.requireNonNull(routeSnapshot.child("mainInfo").getValue()).toString();
 
-                            Route route = new Route(nameRoute, loadPictureRoute, history, mainInfo);
-                            routes.add(route);
+                            Location location = new Location(nameRoute, loadPictureRoute, history, mainInfo);
+                            routes.add(location);
                         }
 
                         RouteAdapter adapter = new RouteAdapter(routes);

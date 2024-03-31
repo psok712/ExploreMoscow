@@ -5,7 +5,7 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/routeIv"
+        android:id="@+id/placesIv"
         android:layout_width="match_parent"
         android:layout_height="250dp"
         android:scaleType="centerCrop"
@@ -13,17 +13,16 @@
         tools:ignore="ContentDescription" />
 
     <TextView
-        android:id="@+id/nameRouteTv"
+        android:id="@+id/namePlacesTv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/routeIv"
+        android:layout_below="@+id/placesIv"
         android:layout_marginTop="0dp"
         android:background="@color/background"
         android:fontFamily="@font/inter_light"
         android:padding="8dp"
         android:textSize="16sp"
-        android:text="Название маршрута"
+        android:text="Название локации"
         android:gravity="center"
         tools:ignore="HardcodedText" />
-
 </RelativeLayout>

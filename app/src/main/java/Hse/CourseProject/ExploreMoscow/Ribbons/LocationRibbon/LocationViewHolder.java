@@ -1,4 +1,4 @@
-package Hse.CourseProject.ExploreMoscow.Location;
+package Hse.CourseProject.ExploreMoscow.Ribbons.LocationRibbon;
 
 import android.annotation.SuppressLint;
 import android.view.View;

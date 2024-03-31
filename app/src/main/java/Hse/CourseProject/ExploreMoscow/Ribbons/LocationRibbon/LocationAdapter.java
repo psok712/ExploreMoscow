@@ -1,4 +1,4 @@
-package Hse.CourseProject.ExploreMoscow.Location;
+package Hse.CourseProject.ExploreMoscow.Ribbons.LocationRibbon;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Objects;
 
 import Hse.CourseProject.ExploreMoscow.R;
+import Hse.CourseProject.ExploreMoscow.Ribbons.Location;
 
 public class LocationAdapter extends RecyclerView.Adapter<LocationViewHolder> {
 
@@ -39,27 +40,32 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationViewHolder> {
     public void onBindViewHolder(@NonNull LocationViewHolder holder, int position) {
         holder.locationNameTv.setText(_locations.get(position).nameLocation());
 
-        FirebaseDatabase
-                .getInstance()
-                .getReference()
-                .child("Location")
-                .child(_locations.get(position).nameLocation())
-                .child("image")
-                .get()
-                .addOnCompleteListener(task -> {
-                    try {
-                        String locationImage = Objects.requireNonNull(task.getResult().getValue()).toString();
+        try {
+            FirebaseDatabase
+                    .getInstance()
+                    .getReference()
+                    .child("Location")
+                    .child(_locations.get(position).nameLocation())
+                    .child("image")
+                    .get()
+                    .addOnCompleteListener(task -> {
+                        try {
+                            String locationImage = Objects.requireNonNull(task.getResult().getValue()).toString();
 
-                        if (!locationImage.isEmpty()) {
-                            Glide.with(holder.itemView.getContext())
-                                    .load(locationImage)
-                                    .into(holder.locationIv);
+                            if (!locationImage.isEmpty()) {
+                                Glide.with(holder.itemView.getContext())
+                                        .load(locationImage)
+                                        .into(holder.locationIv);
+                            }
+                        } catch (Exception e) {
+                            Toast.makeText(holder.itemView.getContext(), "Error: " + e.getMessage(), Toast.LENGTH_SHORT)
+                                    .show();
                         }
-                    } catch (Exception e) {
-                        Toast.makeText(holder.itemView.getContext(), "Error: " + e.getMessage(), Toast.LENGTH_SHORT)
-                                .show();
-                    }
-                });
+                    });
+        } catch (Exception e) {
+            Toast.makeText(holder.itemView.getContext(), "Error: " + e.getMessage(), Toast.LENGTH_SHORT)
+                    .show();
+        }
 
         holder.itemView.setOnClickListener(v -> {
             Location selectedLocation = _locations.get(position);

@@ -1,4 +1,4 @@
-package Hse.CourseProject.ExploreMoscow.Route;
+package Hse.CourseProject.ExploreMoscow.Ribbons.RouteRibbon;
 
 import android.annotation.SuppressLint;
 import android.view.View;

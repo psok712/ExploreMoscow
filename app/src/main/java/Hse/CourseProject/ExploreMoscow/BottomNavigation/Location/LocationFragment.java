@@ -20,8 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import Hse.CourseProject.ExploreMoscow.Location.Location;
-import Hse.CourseProject.ExploreMoscow.Location.LocationAdapter;
+import Hse.CourseProject.ExploreMoscow.Ribbons.Location;
+import Hse.CourseProject.ExploreMoscow.Ribbons.LocationRibbon.LocationAdapter;
 import Hse.CourseProject.ExploreMoscow.databinding.FragmentLocationBinding;
 
 public class LocationFragment extends Fragment

@@ -21,7 +21,7 @@ import Hse.CourseProject.ExploreMoscow.Authorization.LoginActivity;
 import Hse.CourseProject.ExploreMoscow.BottomNavigation.Location.LocationFragment;
 import Hse.CourseProject.ExploreMoscow.BottomNavigation.Map.MapFragment;
 import Hse.CourseProject.ExploreMoscow.BottomNavigation.Profile.ProfileFragment;
-import Hse.CourseProject.ExploreMoscow.BottomNavigation.Ribbon.RibbonFragment;
+import Hse.CourseProject.ExploreMoscow.BottomNavigation.PopularPlaces.PopularPlacesFragment;
 import Hse.CourseProject.ExploreMoscow.BottomNavigation.Routes.RoutesFragment;
 import Hse.CourseProject.ExploreMoscow.databinding.ActivityMainBinding;
 
@@ -43,13 +43,13 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(MainActivity.this, LoginActivity.class));
         }
 
-        getSupportFragmentManager().beginTransaction().replace(binding.fragmentContainer.getId(), new RibbonFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(binding.fragmentContainer.getId(), new PopularPlacesFragment()).commit();
         binding.bottomNav.setSelectedItemId(R.id.ribbon);
 
         Map<Integer, Fragment> fragmentMap = new HashMap<>();
         fragmentMap.put(R.id.profile, new ProfileFragment());
         fragmentMap.put(R.id.routes, new RoutesFragment());
-        fragmentMap.put(R.id.ribbon, new RibbonFragment());
+        fragmentMap.put(R.id.ribbon, new PopularPlacesFragment());
         fragmentMap.put(R.id.location, new LocationFragment());
         fragmentMap.put(R.id.map, new MapFragment());
 
