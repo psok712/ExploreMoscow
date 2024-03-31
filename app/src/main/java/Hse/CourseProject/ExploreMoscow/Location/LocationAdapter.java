@@ -58,6 +58,10 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationViewHolder> {
                                 .show();
                     }
                 });
+
+        holder.itemView.setOnClickListener(v -> {
+
+        });
     }
 
     @Override

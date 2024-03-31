@@ -20,6 +20,7 @@
         tools:ignore="HardcodedText" />
 
     <ImageView
+        android:backgroundTint="@color/background"
         android:id="@+id/mainMoscowIv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

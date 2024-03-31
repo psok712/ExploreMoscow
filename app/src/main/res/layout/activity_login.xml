@@ -5,10 +5,11 @@
     android:id="@+id/imageMoscowLogin"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
-    tools:context=".Authorization.LoginActivity">
+    tools:context=".Authorization.LoginActivity"
+    android:background="@color/background">
 
     <ImageView
+        android:background="@android:color/transparent"
         android:id="@+id/mainMoscowIv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -25,6 +26,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/inter_bold"
+        android:textColor="@color/black"
         android:text="@string/text_login"
         android:textSize="30sp"
         android:layout_marginStart="50dp"
@@ -59,6 +61,7 @@
             android:layout_marginStart="9dp"
             android:fontFamily="@font/inter_light"
             android:hint="@string/text_email"
+            android:textColor="@color/edit_text_color_selector"
             android:inputType="textEmailAddress"
             tools:ignore="TouchTargetSizeCheck"
             android:importantForAutofill="no" />
@@ -91,6 +94,7 @@
             android:layout_marginStart="9dp"
             android:fontFamily="@font/inter_light"
             android:hint="@string/text_password"
+            android:textColor="@color/edit_text_color_selector"
             android:inputType="textPassword"
             tools:ignore="TouchTargetSizeCheck"
             android:importantForAutofill="no" />

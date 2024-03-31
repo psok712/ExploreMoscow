@@ -16,11 +16,11 @@
     <string name="text_username">Имя пользователя</string>
     <string name="text_registration_button">Зарегистрироваться</string>
     <string name="choosePhoto">Выбрать фотографию</string>
-    <string name="myFIO">Глебов Павел</string>
-    <string name="myTag">\@psok712</string>
     <string name="myEmail">myEmail</string>
     <string name="myUsername">myUsername</string>
     <string name="text_main_location">Места</string>
     <string name="text_main_map">Карта</string>
     <string name="text_main_routes">Маршруты</string>
+    <string name="info_about_location">Информация о локации</string>
+    <string name="main_info_about_location">Основная информация о локации</string>
 </resources>
