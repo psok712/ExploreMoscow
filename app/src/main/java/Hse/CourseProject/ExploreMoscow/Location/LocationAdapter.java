@@ -6,6 +6,8 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -60,7 +62,17 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationViewHolder> {
                 });
 
         holder.itemView.setOnClickListener(v -> {
+            // Получаем выбранный элемент
+            Location selectedLocation = _locations.get(position);
 
+            // Создаем новый фрагмент с передачей ID места
+            LocationDetailsFragment detailsFragment = LocationDetailsFragment.newInstance(selectedLocation.getNameLocation());
+
+            // Заменяем текущий фрагмент на новый
+            FragmentTransaction transaction = ((FragmentActivity) holder.itemView.getContext()).getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.fragment_container, detailsFragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
         });
     }
 

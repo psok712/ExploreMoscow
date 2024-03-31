@@ -38,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         bottomNavigationView = findViewById(R.id.bottom_nav);
-        showBottomNavigation();
 
         if (FirebaseAuth.getInstance().getCurrentUser() == null) {
             startActivity(new Intent(MainActivity.this, LoginActivity.class));
@@ -72,6 +71,8 @@ public class MainActivity extends AppCompatActivity {
             }
             return false;
         });
+
+        showBottomNavigation();
     }
 
     private void hideKeyboard() {

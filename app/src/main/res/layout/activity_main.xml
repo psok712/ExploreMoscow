@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/bottom_nav"
         android:foreground="@drawable/border_drawable"
-        android:background="@color/background"
+        android:background="@android:color/transparent"
         app:labelVisibilityMode="unlabeled"
         app:itemIconSize="40dp"
         app:menu="@menu/lower_menu"

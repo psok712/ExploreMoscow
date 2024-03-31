@@ -47,8 +47,10 @@ public class LocationFragment extends Fragment
                         for (DataSnapshot locationSnapshot : snapshot.getChildren()) {
                             String nameLocation = locationSnapshot.getKey();
                             String loadPictureLocation = Objects.requireNonNull(locationSnapshot.child("image").getValue()).toString();
+                            String history = Objects.requireNonNull(locationSnapshot.child("history").getValue()).toString();
+                            String mainInfo = Objects.requireNonNull(locationSnapshot.child("mainInfo").getValue()).toString();
 
-                            Location location = new Location(nameLocation, loadPictureLocation);
+                            Location location = new Location(nameLocation, loadPictureLocation, history, mainInfo);
                             locations.add(location);
                         }
 
