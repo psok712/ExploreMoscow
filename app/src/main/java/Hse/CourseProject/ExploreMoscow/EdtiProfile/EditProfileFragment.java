@@ -79,7 +79,7 @@ public class EditProfileFragment extends Fragment {
                 : "";
         UserProfileChangeRequest profileUpdates;
 
-        if (!profileImageUrl.equals("")) {
+        if (!profileImageUrl.isEmpty()) {
             profileUpdates = new UserProfileChangeRequest.Builder()
                     .setDisplayName(username)
                     .setPhotoUri(imageFilePath)
@@ -102,7 +102,7 @@ public class EditProfileFragment extends Fragment {
 
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        if (!profileImageUrl.equals("")) {
+        if (!profileImageUrl.isEmpty()) {
             FirebaseDatabase.getInstance().getReference().child("Users").child(uid)
                     .child("username").setValue(username);
             FirebaseDatabase.getInstance().getReference().child("Users").child(uid)

@@ -37,13 +37,13 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull LocationViewHolder holder, int position) {
-        holder.locationNameTv.setText(_locations.get(position).getNameLocation());
+        holder.locationNameTv.setText(_locations.get(position).nameLocation());
 
         FirebaseDatabase
                 .getInstance()
                 .getReference()
                 .child("Location")
-                .child(_locations.get(position).getNameLocation())
+                .child(_locations.get(position).nameLocation())
                 .child("image")
                 .get()
                 .addOnCompleteListener(task -> {
@@ -62,13 +62,10 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationViewHolder> {
                 });
 
         holder.itemView.setOnClickListener(v -> {
-            // Получаем выбранный элемент
             Location selectedLocation = _locations.get(position);
 
-            // Создаем новый фрагмент с передачей ID места
-            LocationDetailsFragment detailsFragment = LocationDetailsFragment.newInstance(selectedLocation.getNameLocation());
+            LocationDetailsFragment detailsFragment = LocationDetailsFragment.newInstance(selectedLocation.nameLocation());
 
-            // Заменяем текущий фрагмент на новый
             FragmentTransaction transaction = ((FragmentActivity) holder.itemView.getContext()).getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.fragment_container, detailsFragment);
             transaction.addToBackStack(null);
