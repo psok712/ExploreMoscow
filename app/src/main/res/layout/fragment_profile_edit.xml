@@ -5,7 +5,7 @@
     android:background="@color/background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EdtiProfile.EditProfileFragment">
+    tools:context=".BottomNavigation.Profile.ProfileEditFragment">
 
     <Button
         android:id="@+id/backToProfileActivityBtn"
@@ -40,7 +40,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="50dp"
-        android:src="@drawable/cats_memes"/>
+        android:src="@drawable/profile_default_image"/>
 
     <TextView
         android:id="@+id/btnChangePhotoTv"

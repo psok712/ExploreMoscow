@@ -1,4 +1,4 @@
-package Hse.CourseProject.ExploreMoscow.Ribbons.RouteRibbon;
+package Hse.CourseProject.ExploreMoscow.BottomNavigation.Routes;
 
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -20,7 +20,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.Objects;
 
-import Hse.CourseProject.ExploreMoscow.BottomNavigation.Routes.RoutesFragment;
 import Hse.CourseProject.ExploreMoscow.R;
 import Hse.CourseProject.ExploreMoscow.databinding.FragmentRouteDetailsBinding;
 
@@ -28,10 +27,11 @@ public class RouteDetailsFragment extends Fragment {
 
     private FragmentRouteDetailsBinding binding;
     private final boolean[] onClickButton = {false, false, false};
+    private static final String ROUTES_NODE = "Routes";
 
     public static RouteDetailsFragment newInstance(String routeId) {
-        RouteDetailsFragment fragment = new RouteDetailsFragment();
-        Bundle args = new Bundle();
+        var fragment = new RouteDetailsFragment();
+        var args = new Bundle();
         args.putString("routeId", routeId);
         fragment.setArguments(args);
         return fragment;
@@ -42,40 +42,39 @@ public class RouteDetailsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentRouteDetailsBinding.inflate(inflater, container, false);
 
-        binding.favoriteRouteBtn.setOnClickListener(v -> changeColorFavoriteRouteBtn());
-        binding.checkRouteBtn.setOnClickListener(v -> changeColorCheckRouteBtn());
-        binding.postponeRouteBtn.setOnClickListener(v -> changeColorPostponeRouteBtn());
-        binding.backToRoutesBtn.setOnClickListener(v -> navigateToRoutes());
-
+        setupButtonsClickListeners();
         return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         if (getArguments() != null) {
-            String routeName = getArguments().getString("routeId");
+            var routeName = getArguments().getString("routeId");
             loadRouteData(routeName);
         }
     }
 
+    private void setupButtonsClickListeners() {
+        binding.favoriteRouteBtn.setOnClickListener(v -> changeColorFavoriteRouteBtn());
+        binding.checkRouteBtn.setOnClickListener(v -> changeColorCheckRouteBtn());
+        binding.postponeRouteBtn.setOnClickListener(v -> changeColorPostponeRouteBtn());
+        binding.backToRoutesBtn.setOnClickListener(v -> navigateToRoutes());
+    }
+
     private void loadRouteData(String routeId) {
-        FirebaseDatabase.getInstance().getReference("Routes")
+        FirebaseDatabase.getInstance().getReference(ROUTES_NODE)
                 .child(routeId)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (snapshot.exists()) {
-                            String name = Objects.requireNonNull(snapshot.getKey());
-                            String imageUrl = snapshot.child("image").getValue(String.class);
-                            String history = snapshot.child("history").getValue(String.class);
-                            String mainInfo = snapshot.child("mainInfo").getValue(String.class);
+                            var name = Objects.requireNonNull(snapshot.getKey());
+                            var imageUrl = snapshot.child("image").getValue(String.class);
+                            var history = snapshot.child("history").getValue(String.class);
+                            var mainInfo = snapshot.child("mainInfo").getValue(String.class);
 
-                            binding.nameRouteDetailsTv.setText(name);
-                            binding.historyRouteTv.setText(history);
-                            binding.mainInfoRouteTv.setText(Html.fromHtml(Objects.requireNonNull(mainInfo), Html.FROM_HTML_MODE_COMPACT));
-
+                            displayDataInfo(name, history, mainInfo);
                             loadImage(imageUrl);
                         }
                     }
@@ -85,9 +84,16 @@ public class RouteDetailsFragment extends Fragment {
                 });
     }
 
+    private void displayDataInfo(String name, String history, String mainInfo) {
+        binding.nameRouteDetailsTv.setText(name);
+        binding.historyRouteTv.setText(history);
+        binding.mainInfoRouteTv
+                .setText(Html.fromHtml(Objects.requireNonNull(mainInfo), Html.FROM_HTML_MODE_COMPACT));
+    }
+
     private void navigateToRoutes() {
         getParentFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, new RoutesFragment())
+                .replace(R.id.fragment_container, new RouteFragment())
                 .addToBackStack(null)
                 .commit();
     }
@@ -97,8 +103,8 @@ public class RouteDetailsFragment extends Fragment {
             binding.postponeRouteBtn.setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN);
             onClickButton[2] = false;
         } else {
-            binding.postponeRouteBtn.setColorFilter(Color
-                    .parseColor("#336699"), PorterDuff.Mode.SRC_IN);
+            var colorBlue = Color.parseColor("#336699");
+            binding.postponeRouteBtn.setColorFilter(colorBlue, PorterDuff.Mode.SRC_IN);
             onClickButton[2] = true;
         }
     }
@@ -108,8 +114,8 @@ public class RouteDetailsFragment extends Fragment {
             binding.checkRouteBtn.setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN);
             onClickButton[1] = false;
         } else {
-            binding.checkRouteBtn
-                    .setColorFilter(Color.parseColor("#2A9518"), PorterDuff.Mode.SRC_IN);
+            var colorGreen = Color.parseColor("#2A9518");
+            binding.checkRouteBtn.setColorFilter(colorGreen, PorterDuff.Mode.SRC_IN);
             onClickButton[1] = true;
         }
     }

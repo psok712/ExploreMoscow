@@ -22,53 +22,85 @@ public class RegisterActivity extends AppCompatActivity {
 
     private ActivityRegisterBinding binding;
 
-    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityRegisterBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        setupRegistrationButton();
+        setupBackToLoginButton();
+        setupHideKeyboardOnTouch();
+        setupHideKeyboardOnEditorAction();
+    }
+
+    private void setupRegistrationButton() {
         binding.registrationBtn.setOnClickListener(v -> {
-            if (binding.emailEt.getText().toString().isEmpty()
-                    || binding.passwordEt.getText().toString().isEmpty()
-                    || binding.usernameEt.getText().toString().isEmpty()) {
-                Toast.makeText(getApplicationContext(),
-                        "Поля не могут оставаться пустыми",
-                        Toast.LENGTH_SHORT).show();
+            if (isInputValid()) {
+                registerUser();
             } else {
-                FirebaseAuth.getInstance().createUserWithEmailAndPassword(
-                                binding.emailEt.getText().toString(),
-                                binding.passwordEt.getText().toString())
-                        .addOnCompleteListener(task -> {
-                            if (task.isSuccessful()) {
-                                HashMap<String, String> userInfo = new HashMap<>();
-                                userInfo.put("email", binding.emailEt.getText().toString());
-                                userInfo.put("username", binding.usernameEt.getText().toString());
-                                userInfo.put("profileImage", "");
-
-                                FirebaseDatabase.getInstance().getReference().child("Users")
-                                        .child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())
-                                        .setValue(userInfo);
-
-                                startActivity(new Intent(RegisterActivity.this, MainActivity.class));
-                            } else {
-                                Toast.makeText(getApplicationContext(),
-                                        "Ошибка регистрации: вы ввели недопустимые значения.",
-                                        Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                showInputError();
             }
         });
+    }
 
-        binding.backToLoginActivityBtn.setOnClickListener(v -> startActivity(new Intent(RegisterActivity.this, LoginActivity.class)));
+    private boolean isInputValid() {
+        return !binding.emailEt.getText().toString().isEmpty()
+                && !binding.passwordEt.getText().toString().isEmpty()
+                && !binding.usernameEt.getText().toString().isEmpty();
+    }
 
+    private void registerUser() {
+        FirebaseAuth.getInstance().createUserWithEmailAndPassword(
+                        binding.emailEt.getText().toString(),
+                        binding.passwordEt.getText().toString())
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        saveUserInfo();
+                        startMainActivity();
+                    } else {
+                        showRegistrationError();
+                    }
+                });
+    }
 
+    private void saveUserInfo() {
+        var userInfo = new HashMap<>();
+        userInfo.put("email", binding.emailEt.getText().toString());
+        userInfo.put("username", binding.usernameEt.getText().toString());
+        userInfo.put("profileImage", "");
+
+        FirebaseDatabase.getInstance().getReference().child("Users")
+                .child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())
+                .setValue(userInfo);
+    }
+
+    private void showRegistrationError() {
+        Toast.makeText(getApplicationContext(),
+                "Ошибка регистрации: вы ввели недопустимые значения.",
+                Toast.LENGTH_SHORT).show();
+    }
+
+    private void showInputError() {
+        Toast.makeText(getApplicationContext(),
+                "Ошибка регистрации: поля не могут оставаться пустыми.",
+                Toast.LENGTH_SHORT).show();
+    }
+
+    private void setupBackToLoginButton() {
+        binding.backToLoginActivityBtn.setOnClickListener(v ->
+                startActivity(new Intent(RegisterActivity.this, LoginActivity.class)));
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private void setupHideKeyboardOnTouch() {
         binding.getRoot().setOnTouchListener((v, event) -> {
             hideKeyboard();
             return false;
         });
+    }
 
+    private void setupHideKeyboardOnEditorAction() {
         binding.emailEt.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == KeyEvent.KEYCODE_ENTER) {
                 hideKeyboard();
@@ -79,9 +111,13 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void hideKeyboard() {
-        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        var inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         if (inputMethodManager != null && getCurrentFocus() != null) {
             inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         }
+    }
+
+    private void startMainActivity() {
+        startActivity(new Intent(RegisterActivity.this, MainActivity.class));
     }
 }

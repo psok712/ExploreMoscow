@@ -1,4 +1,4 @@
-package Hse.CourseProject.ExploreMoscow.Ribbons.PopularPlaces;
+package Hse.CourseProject.ExploreMoscow.Holders;
 
 import android.view.View;
 import android.widget.ImageView;
@@ -12,8 +12,8 @@ import Hse.CourseProject.ExploreMoscow.R;
 
 public class PopularPlacesViewHolder extends RecyclerView.ViewHolder {
 
-    ImageView placeIv;
-    TextView placeNameTv;
+    public ImageView placeIv;
+    public TextView placeNameTv;
 
     public PopularPlacesViewHolder(@NotNull View itemView) {
         super(itemView);

@@ -29,7 +29,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="50dp"
-        android:src="@drawable/cats_memes"/>
+        android:src="@drawable/profile_default_image"/>
 
     <TextView
         android:id="@+id/usernameTv"

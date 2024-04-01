@@ -1,4 +1,4 @@
-package Hse.CourseProject.ExploreMoscow.Ribbons.PopularPlaces;
+package Hse.CourseProject.ExploreMoscow.BottomNavigation.PopularPlaces;
 
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -20,18 +20,18 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.Objects;
 
-import Hse.CourseProject.ExploreMoscow.BottomNavigation.PopularPlaces.PopularPlacesFragment;
 import Hse.CourseProject.ExploreMoscow.R;
 import Hse.CourseProject.ExploreMoscow.databinding.FragmentPopularPlacesDetailsBinding;
 
 public class PopularPlacesDetailsFragment extends Fragment {
     private FragmentPopularPlacesDetailsBinding binding;
-
+    private static final String LOCATION_NODE = "Location";
+    private static final String ROUTES_NODE = "Routes";
     private final boolean[] onClickButton = {false, false, false};
 
     public static PopularPlacesDetailsFragment newInstance(String placeId) {
-        PopularPlacesDetailsFragment fragment = new PopularPlacesDetailsFragment();
-        Bundle args = new Bundle();
+        var fragment = new PopularPlacesDetailsFragment();
+        var args = new Bundle();
         args.putString("placeId", placeId);
         fragment.setArguments(args);
         return fragment;
@@ -39,43 +39,49 @@ public class PopularPlacesDetailsFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState
+    ) {
         binding = FragmentPopularPlacesDetailsBinding.inflate(inflater, container, false);
-
-        binding.favoritePlaceBtn.setOnClickListener(v -> changeColorFavoritePlaceBtn());
-        binding.checkPlaceBtn.setOnClickListener(v -> changeColorCheckPlaceBtn());
-        binding.postponePlaceBtn.setOnClickListener(v -> changeColorPostponePlaceBtn());
-        binding.backToPlacesBtn.setOnClickListener(v -> navigateToPlaces());
-
+        setupClickListeners();
         return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         if (getArguments() != null) {
-            String placeName = getArguments().getString("placeId");
-            loadPlaceData(placeName);
+            String placeId = getArguments().getString("placeId");
+            loadPlaceData(placeId);
         }
     }
 
+    private void setupClickListeners() {
+        binding.favoritePlaceBtn.setOnClickListener(v -> changeColorFavoritePlaceBtn());
+        binding.checkPlaceBtn.setOnClickListener(v -> changeColorCheckPlaceBtn());
+        binding.postponePlaceBtn.setOnClickListener(v -> changeColorPostponePlaceBtn());
+        binding.backToPlacesBtn.setOnClickListener(v -> navigateToPlaces());
+    }
+
     private void loadPlaceData(String placeId) {
-        FirebaseDatabase.getInstance().getReference("Location")
+        loadDataForNode(placeId, LOCATION_NODE);
+        loadDataForNode(placeId, ROUTES_NODE);
+    }
+
+    private void loadDataForNode(String placeId, String node) {
+        FirebaseDatabase.getInstance().getReference(node)
                 .child(placeId)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (snapshot.exists()) {
-                            String name = Objects.requireNonNull(snapshot.getKey());
-                            String imageUrl = snapshot.child("image").getValue(String.class);
-                            String history = snapshot.child("history").getValue(String.class);
-                            String mainInfo = snapshot.child("mainInfo").getValue(String.class);
+                            var name = Objects.requireNonNull(snapshot.getKey());
+                            var imageUrl = snapshot.child("image").getValue(String.class);
+                            var history = snapshot.child("history").getValue(String.class);
+                            var mainInfo = snapshot.child("mainInfo").getValue(String.class);
 
-                            binding.namePlaceDetailsTv.setText(name);
-                            binding.historyPlaceTv.setText(history);
-                            binding.mainInfoPlaceTv.setText(Html.fromHtml(Objects.requireNonNull(mainInfo), Html.FROM_HTML_MODE_COMPACT));
-
+                            displayDataInfo(name, history, mainInfo);
                             loadImage(imageUrl);
                         }
                     }
@@ -83,29 +89,13 @@ public class PopularPlacesDetailsFragment extends Fragment {
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {}
                 });
+    }
 
-        FirebaseDatabase.getInstance().getReference("Routes")
-                .child(placeId)
-                .addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if (snapshot.exists()) {
-                            String name = Objects.requireNonNull(snapshot.getKey());
-                            String imageUrl = snapshot.child("image").getValue(String.class);
-                            String history = snapshot.child("history").getValue(String.class);
-                            String mainInfo = snapshot.child("mainInfo").getValue(String.class);
-
-                            binding.namePlaceDetailsTv.setText(name);
-                            binding.historyPlaceTv.setText(history);
-                            binding.mainInfoPlaceTv.setText(Html.fromHtml(Objects.requireNonNull(mainInfo), Html.FROM_HTML_MODE_COMPACT));
-
-                            loadImage(imageUrl);
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {}
-                });
+    private void displayDataInfo(String name, String history, String mainInfo) {
+        binding.namePlaceDetailsTv.setText(name);
+        binding.historyPlaceTv.setText(history);
+        binding.mainInfoPlaceTv
+                .setText(Html.fromHtml(Objects.requireNonNull(mainInfo), Html.FROM_HTML_MODE_COMPACT));
     }
 
     private void navigateToPlaces() {
@@ -120,8 +110,8 @@ public class PopularPlacesDetailsFragment extends Fragment {
             binding.postponePlaceBtn.setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN);
             onClickButton[2] = false;
         } else {
-            binding.postponePlaceBtn.setColorFilter(Color
-                    .parseColor("#336699"), PorterDuff.Mode.SRC_IN);
+            var colorBlue = Color.parseColor("#336699");
+            binding.postponePlaceBtn.setColorFilter(colorBlue, PorterDuff.Mode.SRC_IN);
             onClickButton[2] = true;
         }
     }
@@ -131,8 +121,8 @@ public class PopularPlacesDetailsFragment extends Fragment {
             binding.checkPlaceBtn.setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN);
             onClickButton[1] = false;
         } else {
-            binding.checkPlaceBtn
-                    .setColorFilter(Color.parseColor("#2A9518"), PorterDuff.Mode.SRC_IN);
+            var colorGreen = Color.parseColor("#2A9518");
+            binding.checkPlaceBtn.setColorFilter(colorGreen, PorterDuff.Mode.SRC_IN);
             onClickButton[1] = true;
         }
     }
@@ -158,5 +148,4 @@ public class PopularPlacesDetailsFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
-
 }

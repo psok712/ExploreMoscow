@@ -1,4 +1,4 @@
-package Hse.CourseProject.ExploreMoscow.EdtiProfile;
+package Hse.CourseProject.ExploreMoscow.BottomNavigation.Profile;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -26,30 +26,41 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.Objects;
 
-import Hse.CourseProject.ExploreMoscow.BottomNavigation.Profile.ProfileFragment;
 import Hse.CourseProject.ExploreMoscow.MainActivity;
 import Hse.CourseProject.ExploreMoscow.R;
-import Hse.CourseProject.ExploreMoscow.databinding.FragmentEditEmailProfileBinding;
+import Hse.CourseProject.ExploreMoscow.databinding.FragmentProfileEditEmailBinding;
 
-public class EditEmailProfileFragment extends Fragment {
-    private FragmentEditEmailProfileBinding binding;
+public class ProfileEditEmailFragment extends Fragment {
+    private FragmentProfileEditEmailBinding binding;
+
+    private static final String USERS_NODE = "Users";
 
     @SuppressLint("ClickableViewAccessibility")
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = FragmentEditEmailProfileBinding.inflate(inflater, container, false);
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState
+    ) {
+        binding = FragmentProfileEditEmailBinding.inflate(inflater, container, false);
 
         ((MainActivity) requireActivity()).hideBottomNavigation();
         loadUserInfo();
 
-        binding.readyChangeEmailToProfileActivityBtn.setOnClickListener(v -> changeEmail());
-        binding.backToEditProfileActivityBtn.setOnClickListener(v -> navigateToEditProfile());
+        setupButtons();
         return binding.getRoot();
     }
 
+    private void setupButtons() {
+        binding.readyChangeEmailToProfileActivityBtn.setOnClickListener(v -> changeEmail());
+        binding.backToEditProfileActivityBtn.setOnClickListener(v -> navigateToEditProfile());
+    }
+
     private void loadUserInfo() {
-        FirebaseDatabase.getInstance().getReference().child("Users").child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())
+        FirebaseDatabase.getInstance()
+                .getReference()
+                .child(USERS_NODE)
+                .child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -64,40 +75,50 @@ public class EditEmailProfileFragment extends Fragment {
     }
 
     private void changeEmail() {
-        String newEmail = binding.emailEditProfileEt.getText().toString().trim();
+        var newEmail = binding.emailEditProfileEt.getText().toString().trim();
+        var currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
         if (TextUtils.isEmpty(newEmail)) {
-            Toast.makeText(requireContext(), "Email cannot be empty", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), "Поле Email не может быть пустым", Toast.LENGTH_SHORT).show();
             return;
         }
 
         if (!isValidEmail(newEmail)) {
-            Toast.makeText(requireContext(), "Invalid email format", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), "Неверный формат email", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).verifyBeforeUpdateEmail(newEmail)
+        Objects.requireNonNull(currentUser)
+                .verifyBeforeUpdateEmail(newEmail)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        Toast.makeText(requireContext(), "Email updated successfully", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(requireContext(), "Email успешно обновлен",
+                                Toast.LENGTH_SHORT).show();
                         navigateToProfile();
                     } else {
                         try {
                             throw Objects.requireNonNull(task.getException());
                         } catch (FirebaseAuthActionCodeException e) {
-                            Toast.makeText(requireContext(), "Invalid action code", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(requireContext(), "Недействительный код действия",
+                                    Toast.LENGTH_SHORT).show();
                         } catch (FirebaseAuthInvalidCredentialsException e) {
-                            Toast.makeText(requireContext(), "Invalid credentials", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(requireContext(), "Неверные учетные данные",
+                                    Toast.LENGTH_SHORT).show();
                         } catch (FirebaseAuthUserCollisionException e) {
-                            Toast.makeText(requireContext(), "Email already exists", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(requireContext(), "Email уже существует",
+                                    Toast.LENGTH_SHORT).show();
                         } catch (FirebaseAuthWebException e) {
-                            Toast.makeText(requireContext(), "Web network exception", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(requireContext(), "Ошибка сети",
+                                    Toast.LENGTH_SHORT).show();
                         } catch (FirebaseAuthEmailException e) {
-                            Toast.makeText(requireContext(), "Invalid email address", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(requireContext(), "Неверный адрес электронной почты",
+                                    Toast.LENGTH_SHORT).show();
                         } catch (FirebaseAuthRecentLoginRequiredException e) {
-                            Toast.makeText(requireContext(), "User needs to log in again", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(requireContext(), "Пользователь должен войти повторно",
+                                    Toast.LENGTH_SHORT).show();
                         } catch (Exception e) {
-                            Toast.makeText(requireContext(), "Failed to update email: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(requireContext(), "Не удалось обновить email: " + e.getMessage(),
+                                    Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -115,7 +136,7 @@ public class EditEmailProfileFragment extends Fragment {
 
     private void navigateToEditProfile() {
         getParentFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, new EditProfileFragment())
+                .replace(R.id.fragment_container, new ProfileEditFragment())
                 .commit();
     }
 }

@@ -4,7 +4,8 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="BottomNavigation.Routes.RoutesFragment">
+    tools:context=".BottomNavigation.Routes.RouteFragment"
+    android:background="@color/background">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/routesRv"
@@ -19,7 +20,7 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/search_bar"
+        android:src="@drawable/search_bar_image"
         app:layout_constraintBottom_toTopOf="@+id/routesRv"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

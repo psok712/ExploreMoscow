@@ -20,49 +20,61 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import Hse.CourseProject.ExploreMoscow.Ribbons.Location;
-import Hse.CourseProject.ExploreMoscow.Ribbons.LocationRibbon.LocationAdapter;
+import Hse.CourseProject.ExploreMoscow.Models.Location;
+import Hse.CourseProject.ExploreMoscow.Adapters.LocationAdapter;
 import Hse.CourseProject.ExploreMoscow.databinding.FragmentLocationBinding;
 
 public class LocationFragment extends Fragment
 {
+
     private FragmentLocationBinding binding;
+    private static final String LOCATION_NODE = "Location";
+
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         binding = FragmentLocationBinding.inflate(inflater, container, false);
-
         loadLocations();
-
         return binding.getRoot();
     }
 
     private void loadLocations() {
-        List<Location> locations = new ArrayList<>();
+        var locationsRef = FirebaseDatabase.getInstance().getReference(LOCATION_NODE);
+        locationsRef.addListenerForSingleValueEvent(new LocationValueEventListener());
+    }
 
-        FirebaseDatabase.getInstance().getReference("Location")
-                .addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        for (DataSnapshot locationSnapshot : snapshot.getChildren()) {
-                            String nameLocation = locationSnapshot.getKey();
-                            String loadPictureLocation = Objects.requireNonNull(locationSnapshot.child("image").getValue()).toString();
-                            String history = Objects.requireNonNull(locationSnapshot.child("history").getValue()).toString();
-                            String mainInfo = Objects.requireNonNull(locationSnapshot.child("mainInfo").getValue()).toString();
+    private class LocationValueEventListener implements ValueEventListener {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot snapshot) {
+            var locations = new ArrayList<Location>();
+            for (var locationSnapshot : snapshot.getChildren()) {
+                var nameLocation = locationSnapshot.getKey();
+                var loadPictureLocation = Objects.requireNonNull(locationSnapshot.child("image").getValue()).toString();
+                var history = Objects.requireNonNull(locationSnapshot.child("history").getValue()).toString();
+                var mainInfo = Objects.requireNonNull(locationSnapshot.child("mainInfo").getValue()).toString();
 
-                            Location location = new Location(nameLocation, loadPictureLocation, history, mainInfo);
-                            locations.add(location);
-                        }
+                var location = new Location(nameLocation, loadPictureLocation, history, mainInfo);
+                locations.add(location);
+            }
 
-                        LocationAdapter adapter = new LocationAdapter(locations);
-                        binding.locationRv.setLayoutManager(new LinearLayoutManager(getContext()));
-                        binding.locationRv.setAdapter(adapter);
-                    }
+            displayLocations(locations);
+        }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                        Toast.makeText(getContext(), "Failed to read locations.", Toast.LENGTH_SHORT).show();
-                    }
-                });
+        @Override
+        public void onCancelled(@NonNull DatabaseError error) {
+            handleDatabaseError();
+        }
+    }
+
+    private void displayLocations(List<Location> locations) {
+        var adapter = new LocationAdapter(locations);
+        binding.locationRv.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.locationRv.setAdapter(adapter);
+    }
+
+    private void handleDatabaseError() {
+        Toast.makeText(getContext(), "Не удалось загрузить локации.", Toast.LENGTH_SHORT).show();
     }
 }

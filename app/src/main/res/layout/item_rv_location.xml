@@ -2,28 +2,28 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/background">
 
     <ImageView
-        android:id="@+id/routeIv"
+        android:id="@+id/locationIv"
         android:layout_width="match_parent"
         android:layout_height="250dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/error_cat_status"
+        android:src="@drawable/error_download_image"
         tools:ignore="ContentDescription" />
 
     <TextView
-        android:id="@+id/nameRouteTv"
+        android:id="@+id/nameLocationTv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/routeIv"
+        android:layout_below="@+id/locationIv"
         android:layout_marginTop="0dp"
         android:background="@color/background"
         android:fontFamily="@font/inter_light"
         android:padding="8dp"
         android:textSize="16sp"
-        android:text="Название маршрута"
+        android:text="Название локации"
         android:gravity="center"
         tools:ignore="HardcodedText" />
-
 </RelativeLayout>

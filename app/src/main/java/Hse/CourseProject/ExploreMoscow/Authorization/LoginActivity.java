@@ -18,43 +18,70 @@ public class LoginActivity extends AppCompatActivity {
 
     private ActivityLoginBinding binding;
 
-    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        setupLoginButton();
+        setupCreateAccountTextView();
+        setupHideKeyboardOnTouch();
+        setupHideKeyboardOnEditorAction();
+    }
+
+    private void setupLoginButton() {
         binding.loginBtn.setOnClickListener(v -> {
-            if (binding.emailEt.getText().toString().isEmpty()
-               || binding.passwordEt.getText().toString().isEmpty()) {
-                Toast.makeText(getApplicationContext(),
-                        "Пожалуйста, заполните все поля!",
-                        Toast.LENGTH_SHORT).show();
+            if (isInputValid()) {
+                performLogin();
             } else {
-                FirebaseAuth.getInstance().signInWithEmailAndPassword(
-                        binding.emailEt.getText().toString(),
-                        binding.passwordEt.getText().toString())
-                        .addOnCompleteListener(task -> {
-                            if (task.isSuccessful()) {
-                                startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                            }
-                            else {
-                                Toast.makeText(getApplicationContext(),
-                                        "Вы ввели неверные данные!",
-                                        Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                showInputError();
             }
         });
+    }
 
-        binding.createAccountActivityTv.setOnClickListener(v -> startActivity(new Intent(LoginActivity.this, RegisterActivity.class)));
+    private boolean isInputValid() {
+        return !binding.emailEt.getText().toString().isEmpty()
+                && !binding.passwordEt.getText().toString().isEmpty();
+    }
 
+    private void performLogin() {
+        FirebaseAuth.getInstance().signInWithEmailAndPassword(
+                        binding.emailEt.getText().toString(),
+                        binding.passwordEt.getText().toString())
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        startMainActivity();
+                    } else {
+                        showLoginFailedError();
+                    }
+                });
+    }
+
+    private void showLoginFailedError() {
+        Toast.makeText(getApplicationContext(),
+                "Вы ввели неверные данные!", Toast.LENGTH_SHORT).show();
+    }
+
+    private void showInputError() {
+        Toast.makeText(getApplicationContext(),
+                "Пожалуйста, заполните все поля!", Toast.LENGTH_SHORT).show();
+    }
+
+    private void setupCreateAccountTextView() {
+        binding.createAccountActivityTv.setOnClickListener(v ->
+                startActivity(new Intent(LoginActivity.this, RegisterActivity.class)));
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private void setupHideKeyboardOnTouch() {
         binding.getRoot().setOnTouchListener((v, event) -> {
             hideKeyboard();
             return false;
         });
+    }
 
+    private void setupHideKeyboardOnEditorAction() {
         binding.emailEt.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_DONE || actionId == EditorInfo.IME_ACTION_NEXT) {
                 hideKeyboard();
@@ -65,10 +92,13 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void hideKeyboard() {
-        InputMethodManager inputMethodManager =
-                (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        var inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         if (inputMethodManager != null && getCurrentFocus() != null) {
             inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         }
+    }
+
+    private void startMainActivity() {
+        startActivity(new Intent(LoginActivity.this, MainActivity.class));
     }
 }

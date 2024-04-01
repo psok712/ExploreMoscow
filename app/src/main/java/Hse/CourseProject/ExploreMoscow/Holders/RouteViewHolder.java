@@ -1,4 +1,4 @@
-package Hse.CourseProject.ExploreMoscow.Ribbons.RouteRibbon;
+package Hse.CourseProject.ExploreMoscow.Holders;
 
 import android.annotation.SuppressLint;
 import android.view.View;
@@ -14,8 +14,8 @@ import Hse.CourseProject.ExploreMoscow.R;
 @SuppressLint("ViewConstructor")
 public class RouteViewHolder extends RecyclerView.ViewHolder {
 
-    ImageView routeIv;
-    TextView routeNameTv;
+    public ImageView routeIv;
+    public TextView routeNameTv;
 
     public RouteViewHolder(@NotNull View itemView) {
         super(itemView);

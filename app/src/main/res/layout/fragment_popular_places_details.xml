@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/background">
 
     <Button
         android:id="@+id/backToPlacesBtn"
@@ -70,7 +71,7 @@
                 android:layout_height="250dp"
                 android:importantForAccessibility="no"
                 android:scaleType="centerCrop"
-                android:src="@drawable/error_cat_status"
+                android:src="@drawable/error_download_image"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"

@@ -3,12 +3,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/profile"
-        android:icon="@drawable/icon_username"
+        android:icon="@drawable/icon_profile"
         tools:ignore="MenuTitle" />
 
     <item
         android:id="@+id/routes"
-        android:icon="@drawable/icon_routes2"
+        android:icon="@drawable/icon_route"
         tools:ignore="MenuTitle" />
 
     <item

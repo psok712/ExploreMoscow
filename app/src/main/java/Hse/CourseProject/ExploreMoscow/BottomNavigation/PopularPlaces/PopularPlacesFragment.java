@@ -20,75 +20,67 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import Hse.CourseProject.ExploreMoscow.Ribbons.Location;
-import Hse.CourseProject.ExploreMoscow.Ribbons.PopularPlaces.PopularPlacesAdapter;
+import Hse.CourseProject.ExploreMoscow.Models.Location;
+import Hse.CourseProject.ExploreMoscow.Adapters.PopularPlacesAdapter;
 import Hse.CourseProject.ExploreMoscow.databinding.FragmentPopularPlacesBinding;
 
 public class PopularPlacesFragment extends Fragment {
+
     private FragmentPopularPlacesBinding binding;
+    private static final String LOCATION_NODE = "Location";
+    private static final String ROUTES_NODE = "Routes";
+    private final List<Location> places = new ArrayList<>();
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState
+    ) {
         binding = FragmentPopularPlacesBinding.inflate(inflater, container, false);
-
         loadAllPlaces();
-
         return binding.getRoot();
     }
 
     private void loadAllPlaces() {
-        List<Location> places = new ArrayList<>();
+        places.clear();
+        loadPlacesFromNode(LOCATION_NODE);
+        places.clear();
+        loadPlacesFromNode(ROUTES_NODE);
+    }
 
-        FirebaseDatabase.getInstance().getReference("Location")
+    private void loadPlacesFromNode(String node) {
+        FirebaseDatabase.getInstance().getReference(node)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        for (DataSnapshot locationSnapshot : snapshot.getChildren()) {
-                            String nameLocation = locationSnapshot.getKey();
-                            String loadPictureLocation = Objects.requireNonNull(locationSnapshot.child("image").getValue()).toString();
-                            String history = Objects.requireNonNull(locationSnapshot.child("history").getValue()).toString();
-                            String mainInfo = Objects.requireNonNull(locationSnapshot.child("mainInfo").getValue()).toString();
+                        for (var placeSnapshot : snapshot.getChildren()) {
+                            var name = placeSnapshot.getKey();
+                            var image = Objects.requireNonNull(placeSnapshot.child("image").getValue()).toString();
+                            var history = Objects.requireNonNull(placeSnapshot.child("history").getValue()).toString();
+                            var mainInfo = Objects.requireNonNull(placeSnapshot.child("mainInfo").getValue()).toString();
 
-                            Location location = new Location(nameLocation, loadPictureLocation, history, mainInfo);
+                            var location = new Location(name, image, history, mainInfo);
                             places.add(location);
                         }
 
-                        PopularPlacesAdapter adapter = new PopularPlacesAdapter(places);
-                        binding.placesRv.setLayoutManager(new LinearLayoutManager(getContext()));
-                        binding.placesRv.setAdapter(adapter);
+                        displayPlaces(places);
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-                        Toast.makeText(getContext(), "Failed to read locations.", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-        FirebaseDatabase.getInstance().getReference("Routes")
-                .addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        for (DataSnapshot routeSnapshot : snapshot.getChildren()) {
-                            String nameRoute = routeSnapshot.getKey();
-                            String loadPictureRoute = Objects.requireNonNull(routeSnapshot.child("image").getValue()).toString();
-                            String history = Objects.requireNonNull(routeSnapshot.child("history").getValue()).toString();
-                            String mainInfo = Objects.requireNonNull(routeSnapshot.child("mainInfo").getValue()).toString();
-
-                            Location location = new Location(nameRoute, loadPictureRoute, history, mainInfo);
-                            places.add(location);
-                        }
-
-                        PopularPlacesAdapter adapter = new PopularPlacesAdapter(places);
-                        binding.placesRv.setLayoutManager(new LinearLayoutManager(getContext()));
-                        binding.placesRv.setAdapter(adapter);
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                        Toast.makeText(getContext(), "Failed to read Routes.", Toast.LENGTH_SHORT).show();
+                        handleDatabaseError(node);
                     }
                 });
     }
 
+    private void displayPlaces(List<Location> places) {
+        var adapter = new PopularPlacesAdapter(places);
+        binding.placesRv.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.placesRv.setAdapter(adapter);
+    }
+
+    private void handleDatabaseError(String node) {
+        Toast.makeText(getContext(), "Не удалось загрузить " + node + ".", Toast.LENGTH_SHORT).show();
+    }
 }

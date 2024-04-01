@@ -1,4 +1,4 @@
-package Hse.CourseProject.ExploreMoscow.Ribbons.LocationRibbon;
+package Hse.CourseProject.ExploreMoscow.Holders;
 
 import android.annotation.SuppressLint;
 import android.view.View;
@@ -14,8 +14,8 @@ import Hse.CourseProject.ExploreMoscow.R;
 @SuppressLint("ViewConstructor")
 public class LocationViewHolder extends RecyclerView.ViewHolder {
 
-    ImageView locationIv;
-    TextView locationNameTv;
+    public ImageView locationIv;
+    public TextView locationNameTv;
 
     public LocationViewHolder(@NotNull View itemView) {
         super(itemView);

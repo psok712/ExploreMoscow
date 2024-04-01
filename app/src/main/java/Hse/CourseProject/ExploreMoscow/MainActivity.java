@@ -22,7 +22,7 @@ import Hse.CourseProject.ExploreMoscow.BottomNavigation.Location.LocationFragmen
 import Hse.CourseProject.ExploreMoscow.BottomNavigation.Map.MapFragment;
 import Hse.CourseProject.ExploreMoscow.BottomNavigation.Profile.ProfileFragment;
 import Hse.CourseProject.ExploreMoscow.BottomNavigation.PopularPlaces.PopularPlacesFragment;
-import Hse.CourseProject.ExploreMoscow.BottomNavigation.Routes.RoutesFragment;
+import Hse.CourseProject.ExploreMoscow.BottomNavigation.Routes.RouteFragment;
 import Hse.CourseProject.ExploreMoscow.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
         Map<Integer, Fragment> fragmentMap = new HashMap<>();
         fragmentMap.put(R.id.profile, new ProfileFragment());
-        fragmentMap.put(R.id.routes, new RoutesFragment());
+        fragmentMap.put(R.id.routes, new RouteFragment());
         fragmentMap.put(R.id.ribbon, new PopularPlacesFragment());
         fragmentMap.put(R.id.location, new LocationFragment());
         fragmentMap.put(R.id.map, new MapFragment());
