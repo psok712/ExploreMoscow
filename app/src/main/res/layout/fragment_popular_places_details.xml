@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/background">
+
+    <Button
+        android:id="@+id/backToPlacesBtn"
+        android:layout_width="120dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="0dp"
+        android:backgroundTint="@color/background"
+        android:text="Назад"
+        android:textColor="@color/blue"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="HardcodedText" />
+
+    <ImageButton
+        android:id="@+id/favoritePlaceBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="10dp"
+        android:src="@drawable/icon_favorite_location"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription,RtlSymmetry" />
+
+    <ImageButton
+        android:id="@+id/checkPlaceBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:paddingHorizontal="8dp"
+        android:paddingVertical="7.25dp"
+        android:src="@drawable/icon_check_location"
+        app:layout_constraintEnd_toStartOf="@+id/favoritePlaceBtn"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription,RtlSymmetry" />
+
+    <ImageButton
+        android:id="@+id/postponePlaceBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:paddingHorizontal="8dp"
+        android:paddingVertical="7.25dp"
+        android:src="@drawable/icon_postpone_location"
+        app:layout_constraintEnd_toStartOf="@+id/checkPlaceBtn"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription,RtlSymmetry" />
+
+    <ScrollView
+        android:id="@+id/scrollViewPlaceDetails"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/backToPlacesBtn">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/placeDetailsIv"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:importantForAccessibility="no"
+                android:scaleType="centerCrop"
+                android:src="@drawable/error_download_image"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/namePlaceDetailsTv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:background="@color/background"
+                android:fontFamily="@font/inter_bold"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="Название локации"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/placeDetailsIv"
+                tools:ignore="HardcodedText" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="2dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/namePlaceDetailsTv"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/titleHistoryPlaceTv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:background="@color/background"
+                android:fontFamily="@font/inter_bold"
+                android:gravity="left"
+                android:padding="10dp"
+                android:text="История:"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/namePlaceDetailsTv"
+                tools:ignore="HardcodedText,RtlHardcoded" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="2dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/historyPlaceTv"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/historyPlaceTv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:background="@color/background"
+                android:fontFamily="@font/inter_medium"
+                android:gravity="left"
+                android:padding="10dp"
+                android:text="@string/info_about_location"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/titleHistoryPlaceTv"
+                tools:ignore="RtlHardcoded" />
+
+
+            <TextView
+                android:id="@+id/titleMainInfoPlaceTv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:background="@color/background"
+                android:fontFamily="@font/inter_bold"
+                android:gravity="left"
+                android:padding="10dp"
+                android:text="Основная информация:"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/historyPlaceTv"
+                tools:ignore="HardcodedText,RtlHardcoded" />
+
+            <TextView
+                android:id="@+id/mainInfoPlaceTv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:background="@color/background"
+                android:fontFamily="@font/inter_medium"
+                android:gravity="left"
+                android:padding="10dp"
+                android:text="@string/main_info_about_location"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/titleMainInfoPlaceTv"
+                tools:ignore="RtlHardcoded" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

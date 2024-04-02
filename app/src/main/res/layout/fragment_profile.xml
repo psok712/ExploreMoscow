@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".BottomNavigation.Profile.ProfileFragment">
+
+
+    <Button
+        android:id="@+id/changeToEditProfileBtn"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="5dp"
+        android:backgroundTint="@color/background"
+        android:text="Изменить"
+        android:textColor="@color/blue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="HardcodedText" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/profileIv"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="50dp"
+        android:src="@drawable/profile_default_image"/>
+
+    <TextView
+        android:id="@+id/usernameTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/inter_medium"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/profileIv"
+        android:text="@string/myUsername" />
+
+    <TextView
+        android:id="@+id/emailProfileTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/inter_medium"
+        android:text="@string/myEmail"
+        android:textColor="@color/greyForText"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/usernameTv"
+        tools:ignore="TextContrastCheck" />
+
+    <Button
+        android:id="@+id/favoritePlaceBtn"
+        android:layout_width="310dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/emailProfileTv"
+        android:backgroundTint="@color/white"
+        android:text="Любимые локации"
+        android:textColor="@color/blue"
+        android:foreground="@drawable/border_drawable"
+        tools:ignore="HardcodedText" />
+
+    <Button
+        android:id="@+id/desiredLocationsBtn"
+        android:layout_width="310dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/favoritePlaceBtn"
+        android:backgroundTint="@color/white"
+        android:text="Желаемые для посещения"
+        android:textColor="@color/blue"
+        android:foreground="@drawable/border_drawable"
+        tools:ignore="HardcodedText" />
+
+    <Button
+        android:id="@+id/visitedLovationBtn"
+        android:layout_width="310dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/desiredLocationsBtn"
+        android:backgroundTint="@color/white"
+        android:text="Посещенные локации"
+        android:textColor="@color/blue"
+        android:foreground="@drawable/border_drawable"
+        tools:ignore="HardcodedText" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

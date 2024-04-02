@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".BottomNavigation.Profile.ProfileEditFragment">
+
+    <Button
+        android:id="@+id/backToProfileActivityBtn"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="15dp"
+        android:backgroundTint="@color/background"
+        android:text="Отмена"
+        android:textColor="@color/blue"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="HardcodedText" />
+
+    <Button
+        android:id="@+id/readyChangeToProfileActivityBtn"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="5dp"
+        android:backgroundTint="@color/background"
+        android:text="Готово"
+        android:textColor="@color/blue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="HardcodedText" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/profileIv"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="50dp"
+        android:src="@drawable/profile_default_image"/>
+
+    <TextView
+        android:id="@+id/btnChangePhotoTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/inter_medium"
+        android:textSize="15sp"
+        android:textColor="@color/blue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/profileIv"
+        android:text="@string/choosePhoto" />
+
+    <EditText
+        android:id="@+id/usernameProfileEt"
+        android:layout_width="315dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="28dp"
+        android:autofillHints="username"
+        android:background="@drawable/rounded_edittext_background"
+        android:ems="10"
+        android:fontFamily="@font/inter_light"
+        android:inputType="text"
+        android:padding="12dp"
+        android:text="Имя пользователя"
+        android:textColor="@color/edit_text_color_selector"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnChangePhotoTv"
+        tools:ignore="HardcodedText,LabelFor,TextContrastCheck" />
+
+    <TextView
+        android:id="@+id/infoEditUsernameText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/inter_medium"
+        android:text="Укажите имя и, если хотите, добавьте фотографию для\nВашего профиля."
+        android:textColor="@color/greyForText"
+        android:textSize="11sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/usernameProfileEt"
+        tools:ignore="HardcodedText,TextContrastCheck" />
+
+    <TextView
+        android:id="@+id/emailProfileEt"
+        android:layout_width="315dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="28dp"
+        android:autofillHints="username"
+        android:background="@drawable/rounded_edittext_background"
+        android:ems="10"
+        android:fontFamily="@font/inter_light"
+        android:padding="12dp"
+        android:text="Сменить почту"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.562"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/infoEditUsernameText"
+        tools:ignore="HardcodedText,LabelFor" />
+
+    <ImageView
+        android:id="@+id/arrowEditEmailBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="12dp"
+        android:importantForAccessibility="no"
+        app:layout_constraintBottom_toBottomOf="@+id/emailProfileEt"
+        app:layout_constraintEnd_toEndOf="@+id/emailProfileEt"
+        app:layout_constraintTop_toTopOf="@+id/emailProfileEt"
+        app:srcCompat="@drawable/right_arrow"
+        tools:ignore="ImageContrastCheck" />
+
+    <Button
+        android:id="@+id/exitToLoginBtn"
+        android:layout_width="310dp"
+        android:layout_height="48dp"
+        android:backgroundTint="@color/white"
+        android:foreground="@drawable/border_drawable"
+        android:text="Выйти из профиля"
+        android:textColor="@android:color/holo_red_dark"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="HardcodedText" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

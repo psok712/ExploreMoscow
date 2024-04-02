@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">Исследуй М20оскву</string>
+    <string name="text_main_ribbon">Лента</string>
+    <string name="text_profile">Профиль</string>
+    <string name="button_description_profile">Переход на вкладку профиля</string>
+    <string name="button_description_main">Переход на вкладку ленты</string>
+    <string name="button_description_map">Переход на вкладку карты</string>
+    <string name="button_description_itinerary">Переход на вкладку маршрутов</string>
+    <string name="button_description_location">Переход на вкладку локаций</string>
+    <string name="text_login">Вход</string>
+    <string name="text_email">Почта</string>
+    <string name="text_password">Пароль</string>
+    <string name="text_login_button">Войти</string>
+    <string name="text_sign_in">Создать аккаунт</string>
+    <string name="text_registration">Регистрация</string>
+    <string name="text_username">Имя пользователя</string>
+    <string name="text_registration_button">Зарегистрироваться</string>
+    <string name="choosePhoto">Выбрать фотографию</string>
+    <string name="myEmail">myEmail</string>
+    <string name="myUsername">myUsername</string>
+    <string name="text_main_location">Места</string>
+    <string name="text_main_map">Карта</string>
+    <string name="text_main_routes">Маршруты</string>
+    <string name="info_about_location">Информация о локации</string>
+    <string name="main_info_about_location">Основная информация о локации</string>
+</resources>

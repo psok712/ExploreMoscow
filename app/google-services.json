@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "308054735355",
+    "firebase_url": "https://exploremoscow-dc2be-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "exploremoscow-dc2be",
+    "storage_bucket": "exploremoscow-dc2be.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:308054735355:android:338ae859d74a2126fa335e",
+        "android_client_info": {
+          "package_name": "Hse.CourseProject.ExploreMoscow"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBxQcBHa9AQRwLZNlHdwCOcaf7dpuo2Ox8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
