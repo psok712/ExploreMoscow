@@ -15,7 +15,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.HashMap;
-import java.util.Map;
 
 import Hse.CourseProject.ExploreMoscow.Authorization.LoginActivity;
 import Hse.CourseProject.ExploreMoscow.BottomNavigation.Location.LocationFragment;
@@ -30,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
     private BottomNavigationView bottomNavigationView;
 
-    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,14 +37,28 @@ public class MainActivity extends AppCompatActivity {
 
         bottomNavigationView = findViewById(R.id.bottom_nav);
 
+        checkUserAuthentication();
+        setupInitialFragment();
+        setupBottomNavigation();
+        setupTouchListeners();
+        showBottomNavigation();
+    }
+
+    private void checkUserAuthentication() {
         if (FirebaseAuth.getInstance().getCurrentUser() == null) {
             startActivity(new Intent(MainActivity.this, LoginActivity.class));
         }
+    }
 
-        getSupportFragmentManager().beginTransaction().replace(binding.fragmentContainer.getId(), new PopularPlacesFragment()).commit();
+    private void setupInitialFragment() {
+        getSupportFragmentManager().beginTransaction()
+                .replace(binding.fragmentContainer.getId(), new PopularPlacesFragment())
+                .commit();
         binding.bottomNav.setSelectedItemId(R.id.ribbon);
+    }
 
-        Map<Integer, Fragment> fragmentMap = new HashMap<>();
+    private void setupBottomNavigation() {
+        var fragmentMap = new HashMap<Integer, Fragment>();
         fragmentMap.put(R.id.profile, new ProfileFragment());
         fragmentMap.put(R.id.routes, new RouteFragment());
         fragmentMap.put(R.id.ribbon, new PopularPlacesFragment());
@@ -54,29 +66,32 @@ public class MainActivity extends AppCompatActivity {
         fragmentMap.put(R.id.map, new MapFragment());
 
         binding.bottomNav.setOnItemSelectedListener(item -> {
-            Fragment fragment = fragmentMap.get(item.getItemId());
+            var fragment = fragmentMap.get(item.getItemId());
             assert fragment != null;
 
-            getSupportFragmentManager().beginTransaction().replace(binding.fragmentContainer.getId(), fragment).commit();
+            getSupportFragmentManager().beginTransaction()
+                    .replace(binding.fragmentContainer.getId(), fragment)
+                    .commit();
             return true;
         });
+    }
 
+    @SuppressLint("ClickableViewAccessibility")
+    private void setupTouchListeners() {
         binding.getRoot().setOnTouchListener((v, event) -> {
             hideKeyboard();
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                View focusedView = getCurrentFocus();
+                var focusedView = getCurrentFocus();
                 if (focusedView instanceof EditText) {
                     focusedView.clearFocus();
                 }
             }
             return false;
         });
-
-        showBottomNavigation();
     }
 
     private void hideKeyboard() {
-        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        var inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         if (inputMethodManager != null && getCurrentFocus() != null) {
             inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         }

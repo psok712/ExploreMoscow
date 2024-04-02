@@ -13,9 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthActionCodeException;
 import com.google.firebase.auth.FirebaseAuthEmailException;
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthRecentLoginRequiredException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWebException;
@@ -98,12 +96,6 @@ public class ProfileEditEmailFragment extends Fragment {
                     } else {
                         try {
                             throw Objects.requireNonNull(task.getException());
-                        } catch (FirebaseAuthActionCodeException e) {
-                            Toast.makeText(requireContext(), "Недействительный код действия",
-                                    Toast.LENGTH_SHORT).show();
-                        } catch (FirebaseAuthInvalidCredentialsException e) {
-                            Toast.makeText(requireContext(), "Неверные учетные данные",
-                                    Toast.LENGTH_SHORT).show();
                         } catch (FirebaseAuthUserCollisionException e) {
                             Toast.makeText(requireContext(), "Email уже существует",
                                     Toast.LENGTH_SHORT).show();

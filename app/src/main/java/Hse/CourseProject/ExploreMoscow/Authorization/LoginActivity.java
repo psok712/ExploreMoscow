@@ -60,12 +60,12 @@ public class LoginActivity extends AppCompatActivity {
 
     private void showLoginFailedError() {
         Toast.makeText(getApplicationContext(),
-                "Вы ввели неверные данные!", Toast.LENGTH_SHORT).show();
+                "Ошибка: вы ввели неверные данные!", Toast.LENGTH_SHORT).show();
     }
 
     private void showInputError() {
         Toast.makeText(getApplicationContext(),
-                "Пожалуйста, заполните все поля!", Toast.LENGTH_SHORT).show();
+                "Ошибка: поля не могут оставаться пустыми.", Toast.LENGTH_SHORT).show();
     }
 
     private void setupCreateAccountTextView() {

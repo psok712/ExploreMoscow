@@ -77,13 +77,13 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void showRegistrationError() {
         Toast.makeText(getApplicationContext(),
-                "Ошибка регистрации: вы ввели недопустимые значения.",
+                "Ошибка: вы ввели недопустимые значения.",
                 Toast.LENGTH_SHORT).show();
     }
 
     private void showInputError() {
         Toast.makeText(getApplicationContext(),
-                "Ошибка регистрации: поля не могут оставаться пустыми.",
+                "Ошибка: поля не могут оставаться пустыми.",
                 Toast.LENGTH_SHORT).show();
     }
 
