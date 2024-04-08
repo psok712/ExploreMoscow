@@ -92,7 +92,8 @@ public class LocationDetailsFragment extends Fragment {
 
     private void displayLocationInfo(String name, String history, String mainInfo) {
         binding.nameLocationDetailsTv.setText(name);
-        binding.historyLocationTv.setText(history);
+        binding.historyLocationTv.setText(
+                Html.fromHtml(Objects.requireNonNull(history), Html.FROM_HTML_MODE_COMPACT));
         binding.mainInfoLocationTv.setText(
                 Html.fromHtml(Objects.requireNonNull(mainInfo), Html.FROM_HTML_MODE_COMPACT));
     }

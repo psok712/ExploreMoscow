@@ -93,7 +93,8 @@ public class PopularPlacesDetailsFragment extends Fragment {
 
     private void displayDataInfo(String name, String history, String mainInfo) {
         binding.namePlaceDetailsTv.setText(name);
-        binding.historyPlaceTv.setText(history);
+        binding.historyPlaceTv.setText(
+                Html.fromHtml(Objects.requireNonNull(history), Html.FROM_HTML_MODE_COMPACT));
         binding.mainInfoPlaceTv
                 .setText(Html.fromHtml(Objects.requireNonNull(mainInfo), Html.FROM_HTML_MODE_COMPACT));
     }

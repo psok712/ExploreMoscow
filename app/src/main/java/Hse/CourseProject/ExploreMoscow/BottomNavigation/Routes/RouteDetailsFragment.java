@@ -86,7 +86,8 @@ public class RouteDetailsFragment extends Fragment {
 
     private void displayDataInfo(String name, String history, String mainInfo) {
         binding.nameRouteDetailsTv.setText(name);
-        binding.historyRouteTv.setText(history);
+        binding.historyRouteTv.setText(
+                Html.fromHtml(Objects.requireNonNull(history), Html.FROM_HTML_MODE_COMPACT));
         binding.mainInfoRouteTv
                 .setText(Html.fromHtml(Objects.requireNonNull(mainInfo), Html.FROM_HTML_MODE_COMPACT));
     }
